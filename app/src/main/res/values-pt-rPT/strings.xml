@@ -6,4 +6,6 @@
     <string name="password">Palavra-Chave</string>
     <string name="login">Entrar</string>
     <string name="register">Registar</string>
+    <string name="back">Voltar</string>
+    <string name="confirmpassword">Confirmar Chave</string>
 </resources>
