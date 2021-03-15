@@ -9,4 +9,5 @@
     <string name="back">Voltar</string>
     <string name="confirmpassword">Confirmar Chave</string>
     <string name="insertnote">Criar Nota</string>
+    <string name="emptynote">Nota vazia: não inserida</string>
 </resources>
