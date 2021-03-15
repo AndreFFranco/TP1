@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.android.tp1.adapter.LineAdapter
 import com.example.android.tp1.dataclasses.Note
 import java.nio.file.attribute.AttributeView
@@ -22,13 +23,16 @@ class NotesActivity : AppCompatActivity() {
             myList.add(Note("title $i"))
         }
 
-        recycler_view.adapter = LineAdapter(myList)
-        recycler_view.layoutManager = LineLayoutManager(this)
+        val recyclerview = findViewById<RecyclerView>(R.id.recyclerview)
+
+
+        recyclerview.adapter = LineAdapter(myList)
+        recyclerview.layoutManager = LineLayoutManager(this)
 
     }
 
     fun insert(view: View) {
         myList.add(0, Note("teste"))
-        recycler_view.adapter?.notifyDataSetChanged()
+        recyclerview.adapter?.notifyDataSetChanged()
     }
 }

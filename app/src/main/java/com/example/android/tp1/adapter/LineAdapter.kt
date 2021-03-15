@@ -29,5 +29,5 @@ class LineAdapter(val list: ArrayList<Note>):RecyclerView.Adapter<LineViewHolder
 }
 
 class LineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val title = itemView.title
+    val title = itemView.title1
 }
