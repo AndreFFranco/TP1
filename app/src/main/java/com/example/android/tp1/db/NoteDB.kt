@@ -10,6 +10,7 @@ import com.example.android.tp1.entities.Note
 import kotlin.coroutines.CoroutineContext
 import kotlin.reflect.KParameter
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 @Database(entities = arrayOf(Note::class), version = 4, exportSchema = false)
@@ -23,6 +24,7 @@ public abstract class NoteDB : RoomDatabase() {
 
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
+            /*
             KParameter.Kind.INSTANCE?.let { database ->
                 scope.launch {
                     var noteDao = database.noteDao()
@@ -33,10 +35,10 @@ public abstract class NoteDB : RoomDatabase() {
                     // Add sample words.
                     var note = Note(1, "Titulo1", "Buraco na rua")
                     noteDao.insert(note)
-                    note = Note((1, "Titulo2", "Buraco na outra rua"))
+                    note = Note(2, "Titulo2", "Buraco na outra rua")
                     noteDao.insert(note)
                 }
-            }
+            }*/
         }
     }
 

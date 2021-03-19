@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData
 import com.example.android.tp1.db.NoteDB
 import com.example.android.tp1.db.NoteRepository
 import com.example.android.tp1.entities.Note
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,7 +22,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         allNotes = repository.allNotes
     }
 
-    fun insert(note: Note) = viewModelScope.launch(Dispachers.IO) {
+    fun insert(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(note)
     }
 
