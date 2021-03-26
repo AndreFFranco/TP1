@@ -24,8 +24,8 @@ public abstract class NoteDB : RoomDatabase() {
 
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
-            /*
-            KParameter.Kind.INSTANCE?.let { database ->
+
+            INSTANCE?.let { database ->
                 scope.launch {
                     var noteDao = database.noteDao()
 
@@ -33,12 +33,12 @@ public abstract class NoteDB : RoomDatabase() {
                     noteDao.deleteAll()
 
                     // Add sample words.
-                    var note = Note(1, "Titulo1", "Buraco na rua")
-                    noteDao.insert(note)
-                    note = Note(2, "Titulo2", "Buraco na outra rua")
-                    noteDao.insert(note)
+                    var notetitle = Note(1, "Titulo1", "Buraco na rua")
+                    noteDao.insert(notetitle)
+                    notetitle = Note(2, "Titulo2", "Buraco na outra rua")
+                    noteDao.insert(notetitle)
                 }
-            }*/
+            }
         }
     }
 

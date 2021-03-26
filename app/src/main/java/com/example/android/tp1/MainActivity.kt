@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         Toast.makeText(this, user.text, Toast.LENGTH_SHORT).show()
 
-        val intent = Intent(this, HomeActivity::class.java).apply {
+        val intent = Intent(this, NotesActivity::class.java).apply {
             putExtra(PARAM1_NAME, user.text.toString())
         }
         startActivity(intent)

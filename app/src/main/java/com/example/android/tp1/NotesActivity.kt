@@ -44,10 +44,15 @@ class NotesActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getStringExtra(AddNote.EXTRA_REPLY)?.let {
-                val note = Note(title = it, description = "Teste")
+
+            val title: String? = data?.getStringExtra(AddNote.EXTRA_REPLYTITLE)
+            val desc: String? = data?.getStringExtra(AddNote.EXTRA_REPLYDESC)
+
+            if (title!= null && desc != null) {
+                val note = Note(title = title, description = desc)
                 noteViewModel.insert(note)
             }
+
         } else {
             Toast.makeText(
                 applicationContext,

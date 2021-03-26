@@ -25,13 +25,13 @@ class AddNote : AppCompatActivity() {
 
         button.setOnClickListener {
             val replyIntent = Intent()
-            if (TextUtils.isEmpty(notetitle.text) || TextUtils.isEmpty(notedesc.text)) {
+            if (TextUtils.isEmpty(notetitle.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 val title = notetitle.text.toString()
                 val desc = notedesc.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY, title)
-                replyIntent.putExtra(EXTRA_REPLY, desc) // aonde vão estes EXTRA_REPLY?
+                replyIntent.putExtra(EXTRA_REPLYTITLE, title)
+                replyIntent.putExtra(EXTRA_REPLYDESC, desc) // aonde vão estes EXTRA_REPLY?
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()
@@ -39,6 +39,7 @@ class AddNote : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+        const val EXTRA_REPLYTITLE = "com.example.android.wordlistsql.REPLY"
+        const val EXTRA_REPLYDESC = "com.example.android.wordlistsql.REPLY"
     }
 }
