@@ -23,7 +23,8 @@
         android:layout_marginEnd="15dp"
         android:layout_toStartOf="@+id/imageButton2"
         android:backgroundTint="#E3E3E3"
-        app:srcCompat="@drawable/ic_view" />
+        app:srcCompat="@drawable/ic_view"
+        android:onClick="viewNote"/>
 
     <ImageButton
         android:id="@+id/imageButton2"

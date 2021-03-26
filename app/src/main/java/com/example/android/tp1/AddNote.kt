@@ -11,22 +11,27 @@ import androidx.appcompat.app.AppCompatActivity
 
 class AddNote : AppCompatActivity() {
 
-    private lateinit var editNoteView: EditText
+    private lateinit var notetitle: EditText
+    private lateinit var notedesc: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.add_city)
+        setContentView(R.layout.add_nota)
 
-        editNoteView = findViewById(R.id.edit_note)//Criar na activity "add_city.xml"
+        notetitle = findViewById(R.id.entertitle)
+        notedesc = findViewById(R.id.enterdesc)
 
-        val button = findViewById<Button>(R.id.button_save)//Criar na activity "add_city.xml"
+        val button = findViewById<Button>(R.id.insertnote)
+
         button.setOnClickListener {
             val replyIntent = Intent()
-            if (TextUtils.isEmpty(editNoteView.text)) {
+            if (TextUtils.isEmpty(notetitle.text) || TextUtils.isEmpty(notedesc.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
-                val note = editNoteView.text.toString()
-                replyIntent.putExtra(EXTRA_REPLY, note)
+                val title = notetitle.text.toString()
+                val desc = notedesc.text.toString()
+                replyIntent.putExtra(EXTRA_REPLY, title)
+                replyIntent.putExtra(EXTRA_REPLY, desc) // aonde vão estes EXTRA_REPLY?
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()

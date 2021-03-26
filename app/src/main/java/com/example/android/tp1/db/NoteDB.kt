@@ -55,9 +55,9 @@ public abstract class NoteDB : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     NoteDB::class.java,
-                    "notes_database",
+                    "notes_database"
                 )
-                    .fallbackToDestructiveMigration()
+                    //.fallbackToDestructiveMigration()
                     .addCallback(WordDatabaseCallback(scope))
                     .build()
 

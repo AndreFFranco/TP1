@@ -1,38 +1,61 @@
 package com.example.android.tp1
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.android.tp1.adapter.LineAdapter
-import com.example.android.tp1.dataclasses.Notes
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.notes.*
+import com.example.android.tp1.adapter.NoteAdapter
+import com.example.android.tp1.entities.Note
+import com.example.android.tp1.viewModel.NoteViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class NotesActivity : AppCompatActivity() {
 
-    private lateinit var myList: ArrayList<Notes>
+    private lateinit var noteViewModel: NoteViewModel
+    private  var newWordActivityRequestCode = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.notes)
 
-        myList = ArrayList<Notes>()
+        val recyclerview = findViewById<RecyclerView>(R.id.recycler_view)
+        val adapter = NoteAdapter(this)
+        recyclerview.adapter = adapter
+        recyclerview.layoutManager = LinearLayoutManager(this)
 
-        for (i in 0 until 500) {
-            myList.add(Notes("$i"))
+        noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+        noteViewModel.allNotes.observe(this, Observer { notes ->
+            notes?.let { adapter.setNotes(it) }
+        })
+
+        val fab = findViewById<FloatingActionButton>(R.id.insertbtn)
+        fab.setOnClickListener {
+            val intent = Intent(this@NotesActivity, AddNote::class.java)
+            startActivityForResult(intent, newWordActivityRequestCode)
         }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-        recycler_view.adapter = LineAdapter(myList)
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        //recycler_view.setHasFixedSize(true)
+        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
+            data?.getStringExtra(AddNote.EXTRA_REPLY)?.let {
+                val note = Note(title = it, description = "Teste")
+                noteViewModel.insert(note)
+            }
+        } else {
+            Toast.makeText(
+                applicationContext,
+                "@string/insertnote",
+                Toast.LENGTH_SHORT).show()
+        }
     }
 
 
-    fun insert(view: View) {
-        myList.add(0, Notes("XXX"))
-        recycler_view.adapter?.notifyDataSetChanged()
 
-    }
 }
