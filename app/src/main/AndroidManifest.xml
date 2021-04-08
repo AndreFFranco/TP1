@@ -20,6 +20,7 @@
         <activity android:name=".NotesActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".ViewNoteActivity"></activity>
 
     </application>
 

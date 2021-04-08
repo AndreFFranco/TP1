@@ -13,4 +13,8 @@
     <string name="inserttitle">Titulo</string>
     <string name="insertdescription">Descrição</string>
     <string name="insert">Concluir</string>
+    <string name="editerror">Erro na edição</string>
+    <string name="alerttitle">Apagar Nota?</string>
+    <string name="yesdelete">Sim</string>
+    <string name="nodelete">Não</string>
 </resources>

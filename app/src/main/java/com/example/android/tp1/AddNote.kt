@@ -39,7 +39,7 @@ class AddNote : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLYTITLE = "com.example.android.wordlistsql.REPLY"
-        const val EXTRA_REPLYDESC = "com.example.android.wordlistsql.REPLY"
+        const val EXTRA_REPLYTITLE = "title"
+        const val EXTRA_REPLYDESC = "description"
     }
 }

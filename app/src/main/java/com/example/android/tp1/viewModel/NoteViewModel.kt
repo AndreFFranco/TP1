@@ -26,8 +26,8 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         repository.insert(note)
     }
 
-    fun updateNote(note: Note) = viewModelScope.launch {
-        repository.updateNote(note)
+    fun updateNote(id: Int, title: String, description: String) = viewModelScope.launch {
+        repository.updateNote(id, title, description)
     }
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {

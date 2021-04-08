@@ -14,4 +14,8 @@
     <string name="inserttitle">Title</string>
     <string name="insertdescription">Description</string>
     <string name="insert">Done</string>
+    <string name="editerror">Error on edit</string>
+    <string name="alerttitle">Delete Note?</string>
+    <string name="yesdelete">Yes</string>
+    <string name="nodelete">No</string>
 </resources>

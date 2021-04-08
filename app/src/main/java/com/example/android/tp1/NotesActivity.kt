@@ -3,6 +3,7 @@ package com.example.android.tp1
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.ArrayList
 
 
-class NotesActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
+class NotesActivity : AppCompatActivity(){
 
     private lateinit var noteViewModel: NoteViewModel
     private  var newWordActivityRequestCode = 1
@@ -27,7 +28,7 @@ class NotesActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
         setContentView(R.layout.notes)
 
         val recyclerview = findViewById<RecyclerView>(R.id.recycler_view)
-        val adapter = NoteAdapter(this, listener = this)
+        val adapter = NoteAdapter(this)
         recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(this)
 
@@ -42,15 +43,6 @@ class NotesActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
             startActivityForResult(intent, newWordActivityRequestCode)
         }
 
-    }
-
-    override fun onItemClick(position: Int) {
-        Toast.makeText(
-                applicationContext,
-                "Item $position clicked",
-                Toast.LENGTH_SHORT).show()
-
-        setContentView(R.layout.viewnote)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,7 +65,5 @@ class NotesActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
                 Toast.LENGTH_SHORT).show()
         }
     }
-
-
 
 }
