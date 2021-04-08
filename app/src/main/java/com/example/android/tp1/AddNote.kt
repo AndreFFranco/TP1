@@ -39,7 +39,7 @@ class AddNote : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLYTITLE = "title"
-        const val EXTRA_REPLYDESC = "description"
+        const val EXTRA_REPLYTITLE = "titlereply"
+        const val EXTRA_REPLYDESC = "descriptionreply"
     }
 }
