@@ -10,4 +10,7 @@
     <string name="confirmpassword">Confirmar Chave</string>
     <string name="insertnote">Criar Nota</string>
     <string name="emptynote">Nota vazia: não inserida</string>
+    <string name="inserttitle">Titulo</string>
+    <string name="insertdescription">Descrição</string>
+    <string name="insert">Concluir</string>
 </resources>

@@ -28,7 +28,7 @@ public abstract class NoteDB : RoomDatabase() {
             INSTANCE?.let { database ->
                 scope.launch {
                     var noteDao = database.noteDao()
-
+/*
                     // Delete all content here.
                     noteDao.deleteAll()
 
@@ -36,7 +36,7 @@ public abstract class NoteDB : RoomDatabase() {
                     var notetitle = Note(1, "Titulo1", "Buraco na rua")
                     noteDao.insert(notetitle)
                     notetitle = Note(2, "Titulo2", "Buraco na outra rua")
-                    noteDao.insert(notetitle)
+                    noteDao.insert(notetitle)*/
                 }
             }
         }

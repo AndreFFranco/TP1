@@ -7,15 +7,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.tp1.adapter.NoteAdapter
 import com.example.android.tp1.entities.Note
 import com.example.android.tp1.viewModel.NoteViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.ArrayList
 
 
-class NotesActivity : AppCompatActivity() {
+class NotesActivity : AppCompatActivity(), NoteAdapter.OnItemClickListener {
 
     private lateinit var noteViewModel: NoteViewModel
     private  var newWordActivityRequestCode = 1
@@ -25,7 +27,7 @@ class NotesActivity : AppCompatActivity() {
         setContentView(R.layout.notes)
 
         val recyclerview = findViewById<RecyclerView>(R.id.recycler_view)
-        val adapter = NoteAdapter(this)
+        val adapter = NoteAdapter(this, listener = this)
         recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(this)
 
@@ -39,7 +41,18 @@ class NotesActivity : AppCompatActivity() {
             val intent = Intent(this@NotesActivity, AddNote::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
         }
+
     }
+
+    override fun onItemClick(position: Int) {
+        Toast.makeText(
+                applicationContext,
+                "Item $position clicked",
+                Toast.LENGTH_SHORT).show()
+
+        setContentView(R.layout.viewnote)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -48,7 +61,7 @@ class NotesActivity : AppCompatActivity() {
             val title: String? = data?.getStringExtra(AddNote.EXTRA_REPLYTITLE)
             val desc: String? = data?.getStringExtra(AddNote.EXTRA_REPLYDESC)
 
-            if (title!= null && desc != null) {
+            if (title!= null && desc!= null) {
                 val note = Note(title = title, description = desc)
                 noteViewModel.insert(note)
             }

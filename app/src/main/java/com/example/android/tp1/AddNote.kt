@@ -25,13 +25,13 @@ class AddNote : AppCompatActivity() {
 
         button.setOnClickListener {
             val replyIntent = Intent()
-            if (TextUtils.isEmpty(notetitle.text)) {
+            if (TextUtils.isEmpty(notetitle.text) || TextUtils.isEmpty(notedesc.text)) {
                 setResult(Activity.RESULT_CANCELED, replyIntent)
             } else {
                 val title = notetitle.text.toString()
                 val desc = notedesc.text.toString()
                 replyIntent.putExtra(EXTRA_REPLYTITLE, title)
-                replyIntent.putExtra(EXTRA_REPLYDESC, desc) // aonde vão estes EXTRA_REPLY?
+                replyIntent.putExtra(EXTRA_REPLYDESC, desc)
                 setResult(Activity.RESULT_OK, replyIntent)
             }
             finish()

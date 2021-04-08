@@ -14,8 +14,8 @@ class NoteRepository(private val noteDao: NoteDao) {
         noteDao.insert(note)
     }
 
-    suspend fun updateNote(note: Note) {
-        noteDao.updateNote(note)
+    suspend fun updateNote(id:Int, title :String, descripton: String) {
+        noteDao.updateNote(id, title, descripton)
     }
 
     suspend fun deleteAll() {
