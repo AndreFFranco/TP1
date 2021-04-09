@@ -57,18 +57,11 @@ class ViewNoteActivity : AppCompatActivity() {
                 noteViewModel.deleteById(id)
                 finish()
             }
-
             Alert.setNegativeButton(getString(R.string.nodelete)){ dialog, id ->
                 dialog.dismiss()
             }
             Alert.show()
-
         }
-        /*
-        val button_back=findViewById<ImageButton>(R.id.voltar)
-        button_back.setOnClickListener{
-            finish()
-        }*/
 
     }
 

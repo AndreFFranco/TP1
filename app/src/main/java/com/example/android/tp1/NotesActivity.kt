@@ -58,11 +58,6 @@ class NotesActivity : AppCompatActivity(){
                 noteViewModel.insert(note)
             }
 
-        } else {
-            Toast.makeText(
-                applicationContext,
-                "@string/insertnote",
-                Toast.LENGTH_SHORT).show()
         }
     }
 
