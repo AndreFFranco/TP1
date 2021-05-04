@@ -1,7 +1,8 @@
-package com.example.android.tp1
+package com.example.android.tp1.reports
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.android.tp1.R
 
 class AddReport : AppCompatActivity() {
 
