@@ -8,23 +8,46 @@ import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.tp1.api.EndPoints
+import com.example.android.tp1.api.LoginCheck
 import com.example.android.tp1.api.ServiceBuilder
 import com.example.android.tp1.api.User
 import kotlinx.android.synthetic.main.notes.*
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 const val PARAM1_NAME = "PARAM1_NAME"
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var user: EditText
+    private lateinit var pass: EditText
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val button = findViewById<Button>(R.id.button)
+        button.setOnClickListener{
+            login()
+        }
+
+        val button2 = findViewById<Button>(R.id.button2)
+        button2.setOnClickListener{
+            val intent = Intent(this, NotesActivity::class.java)
+            startActivity(intent)
+        }
+
+        user = findViewById(R.id.editTextTextPersonName)
+        pass = findViewById(R.id.editTextTextPassword)
+
 /*
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getUsers()
@@ -44,20 +67,15 @@ class MainActivity : AppCompatActivity() {
             }
         })
 */
-
         //SHARED PREFERENCES
-
         val sharedPref: SharedPreferences = getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-
         /*Example
         val soundValue = sharedPref.getBoolean(getString(R.string.sound), false)
         Log.d("****SHAREDPREF", "Read $soundValue")
-
         if(soundValue) {
             findViewById<CheckBox>(R.idcheckBox).isChecked = true
         }*/
-
     }
 /*
     fun checkboxClicked(view: View) {
@@ -72,16 +90,34 @@ class MainActivity : AppCompatActivity() {
         }
     }*/
 
-    fun login(view: View) {
+    fun login() {
+        val username =  user.text.toString()
+        val password = pass.text.toString()
 
-        var user = findViewById<EditText>(R.id.editTextTextPersonName)
-        var pass = findViewById<EditText>(R.id.editTextTextPassword)
+        if(username.isNotEmpty() && password.isNotEmpty()){
+            val request = ServiceBuilder.buildService(EndPoints::class.java)
+            val call = request.login(username, password)
 
-        Toast.makeText(this, user.text, Toast.LENGTH_SHORT).show()
+            call.enqueue(object : Callback<LoginCheck> {
+                override fun onResponse(call: Call<LoginCheck>, response: Response<LoginCheck>) {
+                    if (response.isSuccessful) {
+                        val safe : LoginCheck=response.body()!!
+                        Toast.makeText(this@MainActivity,safe.MSG,Toast.LENGTH_SHORT).show()
 
-        val intent = Intent(this, MapsActivity::class.java).apply {
-            putExtra(PARAM1_NAME, user.text.toString())
+                        if(safe.status == true) {
+                            val intent = Intent(this@MainActivity, MapsActivity::class.java)
+                            intent.putExtra("id",safe.id)
+                            startActivity(intent)
+                        }
+
+                    }
+
+                }
+
+                override fun onFailure(call: Call<LoginCheck>, t: Throwable) {
+                    Toast.makeText(this@MainActivity,"${t.message}",Toast.LENGTH_SHORT).show()
+                }
+            })
         }
-        startActivity(intent)
     }
 }
