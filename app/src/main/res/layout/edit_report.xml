@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".reports.AddReport">
+    android:visibility="visible"
+    tools:context=".reports.EditReport">
 
     <TextView
         android:id="@+id/textView"
@@ -13,23 +13,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Title"
+        android:text="@string/inserttitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/titleR"
+        android:id="@+id/reporttitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-light"
-        android:hint="Placeholder"
         android:inputType="textAutoComplete"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -37,19 +36,19 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:gravity="center"
-        android:text="Description"
+        android:text="@string/insertdescription"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleR" />
+        app:layout_constraintTop_toBottomOf="@+id/reporttitle" />
 
     <EditText
-        android:id="@+id/descR"
+        android:id="@+id/reportdesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-light"
-        android:hint="Placeholder"
         android:inputType="textAutoComplete"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,40 +56,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <Button
-        android:id="@+id/btnAddImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:text="Select Image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
-
-    <ImageView
-        android:id="@+id/imageR"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/jk"
-        app:layout_constraintEnd_toEndOf="@id/jk"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@id/jk"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddImage"
-        app:layout_constraintVertical_bias="0.211" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descR" />
 
     <LinearLayout
-        android:id="@+id/jk"
+        android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -99,29 +67,28 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/btnAddR"
+            android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save"
+            android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/back"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descR" />
+            app:layout_constraintTop_toBottomOf="@+id/reportdesc" />
 
         <Button
-            android:id="@+id/btnCancelR"
+            android:id="@+id/cancel_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel"
+            android:text="@string/back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/save"
-            app:layout_constraintTop_toBottomOf="@+id/descR" />
+            app:layout_constraintTop_toBottomOf="@+id/reportdesc" />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

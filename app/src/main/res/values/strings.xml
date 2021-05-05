@@ -19,4 +19,22 @@
     <string name="yesdelete">Yes</string>
     <string name="nodelete">No</string>
     <string name="title_activity_maps">Map</string>
+    <string name="emptyfields">Don´t Leave Empty Fields</string>
+    <string name="saved">Saved</string>
+    <string name="alertreport">Delete Report?</string>
+    <string name="reportdeleted">Report Deleted</string>
+    <string name="notes">Notes</string>
+    <string name="save">Save</string>
+    <string name="emptyfield">Title or description empty</string>
+    <string-array name="type">
+        <item>Acidente</item>
+        <item>Obras</item>
+        <item>Saneamento</item>
+    </string-array>
+    <string name="acidents">Accidents</string>
+    <string name="construction">Construction</string>
+    <string name="sanitation">Sanitation</string>
+    <string name="sharedpref" translatable="false">Shared Preferences File</string>
+    <string name="id_sharedpref" translatable="false">id</string>
+    <string name="id">ID</string>
 </resources>

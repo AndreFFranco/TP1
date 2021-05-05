@@ -17,4 +17,16 @@
     <string name="alerttitle">Apagar Nota?</string>
     <string name="yesdelete">Sim</string>
     <string name="nodelete">Não</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="emptyfields">Não deixe campos em branco</string>
+    <string name="saved">Guadado</string>
+    <string name="alertreport">Apagar Ocorrencia?</string>
+    <string name="reportdeleted">Ocorrencia Apagada</string>
+    <string name="notes">Notas</string>
+    <string name="save">Guardar</string>
+    <string name="emptyfield">Titulo ou descrição vazios</string>
+    <string name="acidents">Acidentes</string>
+    <string name="construction">Obras</string>
+    <string name="sanitation">Saneamento</string>
+    <string name="id">ID</string>
 </resources>

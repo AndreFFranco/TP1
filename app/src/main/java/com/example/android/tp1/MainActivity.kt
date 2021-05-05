@@ -26,6 +26,7 @@ const val PARAM1_NAME = "PARAM1_NAME"
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var btnLogin: Button
     private lateinit var user: EditText
     private lateinit var pass: EditText
     private lateinit var sharedPreferences: SharedPreferences
@@ -48,6 +49,11 @@ class MainActivity : AppCompatActivity() {
         user = findViewById(R.id.editTextTextPersonName)
         pass = findViewById(R.id.editTextTextPassword)
 
+        btnLogin = findViewById(R.id.button)
+
+        btnLogin.setOnClickListener() {
+            login()
+        }
 /*
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getUsers()
@@ -102,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<LoginCheck>, response: Response<LoginCheck>) {
                     if (response.isSuccessful) {
                         val safe : LoginCheck=response.body()!!
-                        Toast.makeText(this@MainActivity,safe.MSG,Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity,safe.message,Toast.LENGTH_SHORT).show()
 
                         if(safe.status == true) {
                             val intent = Intent(this@MainActivity, MapsActivity::class.java)

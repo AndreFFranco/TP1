@@ -1,5 +1,7 @@
 package com.example.android.tp1.api
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -17,4 +19,28 @@ interface EndPoints {
             @Field("username") username: String,
             @Field("password") password: String
     ): Call<LoginCheck>
+
+    @Multipart
+    @POST("/myslim/api/reports")
+    fun addReport(
+            @Part("title") title: RequestBody,
+            @Part("description") description: RequestBody,
+            @Part("latitude") latitude: RequestBody,
+            @Part("longitude") longitude: RequestBody,
+            @Part image: MultipartBody.Part,
+            @Part("user_id") user_id: Int?,
+            @Part("type_id") type_id: Int?
+    ): Call<OutputReport>
+
+    @FormUrlEncoded
+    @POST("/myslim/api/deleteReport")
+    fun deleteReport(@Field("id") first: Int?): Call<Report>
+
+    @FormUrlEncoded
+    @POST("/myslim/api/editReport")
+    fun editReport(
+            @Field("id") first: Int?,
+            @Field("title") second: String?,
+            @Field("description") third: String?
+    ): Call<String>
 }
