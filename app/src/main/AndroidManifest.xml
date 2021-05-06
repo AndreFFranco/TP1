@@ -49,6 +49,7 @@
         <activity android:name=".reports.DeleteReport" />
         <activity android:name=".reports.EditReport" />
         <activity android:name=".reports.UserReports" />
+        <activity android:name=".reports.ViewReport" />
 
     </application>
 

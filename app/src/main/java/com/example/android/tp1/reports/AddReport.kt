@@ -162,11 +162,8 @@ class AddReport : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             override fun onResponse(call: Call<OutputReport>, response: Response<OutputReport>) {
 
                 if(response.isSuccessful){
-
                     Toast.makeText(applicationContext, R.string.saved, Toast.LENGTH_LONG).show()
-
                     val intent = Intent(this@AddReport, MapsActivity::class.java)
-
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                     finish()

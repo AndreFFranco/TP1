@@ -17,6 +17,17 @@ tools:context=".NotesActivity">
         android:layout_height="match_parent"
         tools:context=".MapsActivity" />
 
+    <TextView
+        android:id="@+id/coords"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Coordenadas: "
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:id="@+id/insertbtn"
     app:layout_constraintBottom_toBottomOf="parent"

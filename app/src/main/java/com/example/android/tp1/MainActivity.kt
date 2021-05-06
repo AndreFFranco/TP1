@@ -111,6 +111,12 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this@MainActivity,safe.message,Toast.LENGTH_SHORT).show()
 
                         if(safe.status == true) {
+                            val sharedPreferences = getSharedPreferences(getString(R.string.sharedpref), Context.MODE_PRIVATE)
+                            with(sharedPreferences.edit()) {
+                                putInt(R.string.id_sharedpref.toString(), safe.id)
+                                commit()
+
+                            }
                             val intent = Intent(this@MainActivity, MapsActivity::class.java)
                             intent.putExtra("id",safe.id)
                             startActivity(intent)

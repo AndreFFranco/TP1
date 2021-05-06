@@ -1,30 +1,44 @@
 package com.example.android.tp1
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.example.android.tp1.adapter.REPD
+import com.example.android.tp1.adapter.REPT
 import com.example.android.tp1.api.EndPoints
+import com.example.android.tp1.api.Report
 import com.example.android.tp1.api.ServiceBuilder
 import com.example.android.tp1.api.User
 import com.example.android.tp1.reports.AddReport
+import com.example.android.tp1.reports.ViewReport
 import com.google.android.gms.location.*
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private lateinit var mMap: GoogleMap
-    private lateinit var users: List<User>
+    private lateinit var report: List<Report>
+    private lateinit var sharedPref: SharedPreferences
 
     private lateinit var lastLocation: Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -42,25 +56,47 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getUsers()
-        var position: LatLng
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
+        //MARKERS
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+        val call = request.getReports()
+        var position: LatLng
+        sharedPref = getSharedPreferences(getString(R.string.sharedpref), Context.MODE_PRIVATE)
+        val id = sharedPref.getInt(R.string.id_sharedpref.toString(), 0)
+        val loc = Location("dummyprovider")
+        call.enqueue(object : Callback<List<Report>> {
+            override fun onResponse(call: Call<List<Report>>, response: Response<List<Report>>) {
+                if (response.isSuccessful) {
+                    report = response.body()!!
+                    for (rep in report) {
+                        val dist = calculateDistance(loc.latitude, loc.longitude, rep.latitude.toDouble(), rep.longitude.toDouble())
+                        if (id == rep.user_id) {
+                            position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
+                            mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description + " -- " + "a " + dist + " metros").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                        } else {
+                            position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
+                            mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description + " -- " + "a " + dist + " metros").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                        }
+                    }
+                }
+            }
+            override fun onFailure(call: Call<List<Report>>, t: Throwable) {
+                Toast.makeText(this@MapsActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
         //added to implement location periodic updates
         locationCallBack = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
                 super.onLocationResult(p0)
                 lastLocation = p0.lastLocation
                 var loc = LatLng(lastLocation.latitude, lastLocation.longitude)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.0f))
-                //findViewById<TextView>(R.id.txtcoordenadas).setText("Lat: " + loc.latitude + " - Long: " + loc.longitude)
+                //mMap.addMarker(MarkerOptions().position(loc).title("Marker"))
+                //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.0f))
+                findViewById<TextView>(R.id.coords).setText("Lat: " + loc.latitude + " - Long: " + loc.longitude)
                 Log.d("**** ANDRE", "new location received - " + loc.latitude + " - " + loc.longitude)
             }
-            
         }
-
         //request creation
         createLocationRequest()
 
@@ -83,12 +119,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+            return
+        } else {
+            mMap.isMyLocationEnabled = true
+        }
+
+        mMap.setOnInfoWindowClickListener(this)
+
         // Add a marker in Sydney and move the camera
         /*val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))*/
 
         setUpMap()
+    }
+
+    override fun onInfoWindowClick(marker: Marker) {
+        val intent = Intent(this, ViewReport::class.java).apply {
+            putExtra(REPT, marker.title)
+            putExtra(REPD, marker.snippet)
+        }
+        startActivity(intent)
+    }
+
+    fun calculateDistance(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Float {
+        val results = FloatArray(1)
+        Location.distanceBetween(lat1, lng1, lat2, lng2, results)
+        // distance in meter
+        return results[0]
     }
 
     fun setUpMap() {

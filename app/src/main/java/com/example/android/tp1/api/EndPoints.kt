@@ -21,7 +21,7 @@ interface EndPoints {
     ): Call<LoginCheck>
 
     @Multipart
-    @POST("/myslim/api/reports")
+    @POST("addReport")
     fun addReport(
             @Part("title") title: RequestBody,
             @Part("description") description: RequestBody,
@@ -33,14 +33,17 @@ interface EndPoints {
     ): Call<OutputReport>
 
     @FormUrlEncoded
-    @POST("/myslim/api/deleteReport")
+    @POST("deleteReport")
     fun deleteReport(@Field("id") first: Int?): Call<Report>
 
     @FormUrlEncoded
-    @POST("/myslim/api/editReport")
+    @POST("editReport")
     fun editReport(
             @Field("id") first: Int?,
             @Field("title") second: String?,
             @Field("description") third: String?
     ): Call<String>
+
+    @GET("reports")
+    fun getReports(): Call<List<Report>>
 }
