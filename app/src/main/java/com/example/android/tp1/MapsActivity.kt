@@ -8,6 +8,7 @@ import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -18,6 +19,7 @@ import com.example.android.tp1.api.Report
 import com.example.android.tp1.api.ServiceBuilder
 import com.example.android.tp1.api.User
 import com.example.android.tp1.reports.AddReport
+import com.example.android.tp1.reports.UserReports
 import com.example.android.tp1.reports.ViewReport
 import com.google.android.gms.location.*
 
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,6 +50,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
     private lateinit var locationRequest: LocationRequest
 
     private  var newWordActivityRequestCode = 1
+
+    private var click = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,11 +105,66 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
         //request creation
         createLocationRequest()
 
+        //FABS
+
         val fab = findViewById<FloatingActionButton>(R.id.insertbtn)
         fab.setOnClickListener {
             val intent = Intent(this@MapsActivity, AddReport::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
         }
+
+        val listFab = findViewById<FloatingActionButton>(R.id.reportsFab)
+
+        listFab.setOnClickListener {
+            val intent = Intent(this@MapsActivity, UserReports::class.java)
+            startActivityForResult(intent, newWordActivityRequestCode)
+
+        }
+
+        val notesFab = findViewById<FloatingActionButton>(R.id.notesFab)
+
+        notesFab.setOnClickListener {
+            val intent = Intent(this@MapsActivity, NotesActivity::class.java)
+            startActivityForResult(intent, newWordActivityRequestCode)
+
+        }
+
+        val fabLogout = findViewById<FloatingActionButton>(R.id.logoutFab)
+
+        fabLogout.setOnClickListener {
+            val editor: SharedPreferences.Editor= sharedPref.edit()
+            editor.clear()
+            editor.commit()
+            editor.apply()
+            val intent = Intent(this@MapsActivity, MainActivity::class.java)
+            startActivity(intent)
+
+        }
+/*
+        val fabmenu = findViewById<ExtendedFloatingActionButton>(R.id.openfabs)
+        fabmenu.shrink()
+        fabmenu.setOnClickListener {
+            if (!click){
+                fabLogout.visibility = View.VISIBLE
+                fab.visibility = View.VISIBLE
+                listFab.visibility = View.VISIBLE
+                notesFab.visibility = View.VISIBLE
+
+                fabmenu.extend()
+                click = true
+            } else {
+
+                fabLogout.visibility = View.GONE
+                fab.visibility = View.GONE
+                listFab.visibility = View.GONE
+                notesFab.visibility = View.GONE
+
+                fabmenu.shrink()
+                click = false
+            }
+
+        }
+*/
     }
 
     /**

@@ -37,4 +37,6 @@
     <string name="sharedpref" translatable="false">Shared Preferences File</string>
     <string name="id_sharedpref" translatable="false">id</string>
     <string name="id">ID</string>
+    <string name="sharedpref_file" translatable="false">Shared Preferences File</string>
+    <string name="more">More</string>
 </resources>

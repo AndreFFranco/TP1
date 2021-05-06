@@ -46,4 +46,7 @@ interface EndPoints {
 
     @GET("reports")
     fun getReports(): Call<List<Report>>
+
+    @GET("reports/users/{id}")
+    fun getUserRep(@Path("id") id: Int): Call<List<Report>>
 }

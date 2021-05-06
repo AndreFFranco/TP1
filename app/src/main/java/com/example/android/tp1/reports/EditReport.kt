@@ -21,27 +21,27 @@ import retrofit2.Response
 
 class EditReport : AppCompatActivity() {
 
-    private lateinit var desc: EditText
-    private lateinit var tit: EditText
+    private lateinit var description: EditText
+    private lateinit var title: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_report)
 
-        val desc_edit = intent.getStringExtra(REPD)
-        findViewById<EditText>(R.id.reportdesc).setText(desc_edit)
+        val editDescription = intent.getStringExtra(REPD)
+        findViewById<EditText>(R.id.reportdesc).setText(editDescription)
 
-        val tit_edi = intent.getStringExtra(REPT)
-        findViewById<EditText>(R.id.reporttitle).setText(tit_edi)
+        val editTitle = intent.getStringExtra(REPT)
+        findViewById<EditText>(R.id.reporttitle).setText(editTitle)
 
-        val save_Edit = findViewById<Button>(R.id.save)
-        save_Edit.setOnClickListener {
-            guardarEdit2()
+        val save = findViewById<Button>(R.id.save)
+        save.setOnClickListener {
+            saveChanges()
             finish()
         }
 
-        val cancel_edit = findViewById<Button>(R.id.cancel_edit)
-        cancel_edit.setOnClickListener {
+        val back = findViewById<Button>(R.id.cancel)
+        back.setOnClickListener {
             val intent = Intent(this, UserReports::class.java)
             startActivity(intent)
             finish()
@@ -50,24 +50,24 @@ class EditReport : AppCompatActivity() {
 
     }
 
-    fun guardarEdit2() {
-        tit = findViewById(R.id.reporttitle)
-        desc = findViewById(R.id.reportdesc)
+    fun saveChanges() {
+        title = findViewById(R.id.reporttitle)
+        description = findViewById(R.id.reportdesc)
 
 
-        var id_oco_edit: Int = intent.getIntExtra(REPID, 0)
-        val tituEnv: String = tit.text.toString()
-        val descEnv: String = desc.text.toString()
+        var idRep: Int = intent.getIntExtra(REPID, 0)
+        val newTitle: String = title.text.toString()
+        val newDesc: String = description.text.toString()
 
         val replyIntent = Intent()
-        if (TextUtils.isEmpty(desc.text.toString()) && TextUtils.isEmpty(tit.text.toString())) {
+        if (TextUtils.isEmpty(description.text.toString()) && TextUtils.isEmpty(title.text.toString())) {
             setResult(Activity.RESULT_CANCELED, replyIntent)
             Toast.makeText(this, R.string.emptyfield, Toast.LENGTH_SHORT).show()
 
         } else {
 
             val request = ServiceBuilder.buildService(EndPoints::class.java)
-            val call = request.editReport(id_oco_edit, tituEnv, descEnv)
+            val call = request.editReport(idRep, newTitle, newDesc)
             call.enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
