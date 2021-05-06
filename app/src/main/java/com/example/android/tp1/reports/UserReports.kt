@@ -28,9 +28,9 @@ class UserReports: AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         val request = ServiceBuilder.buildService(EndPoints::class.java)
 
-        sharedPreferences = getSharedPreferences(getString(R.string.sharedpref_file), Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(getString(R.string.sharedpref), Context.MODE_PRIVATE)
 
-        val id = sharedPreferences.getInt(R.string.id_sharedpref.toString(), 0)
+        val id = sharedPreferences.getInt(R.string.spid.toString(), 0)
         val call = request.getUserRep(id)
 
         call.enqueue(object : Callback<List<Report>> {

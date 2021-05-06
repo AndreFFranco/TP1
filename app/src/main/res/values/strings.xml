@@ -8,8 +8,6 @@
     <string name="back">Back</string>
     <string name="confirmpassword">Confirm Password</string>
     <string name="insertnote">Create Note</string>
-    <string name="preference_file_key" translatable="false">file1</string>
-    <string name="sound" translatable="false">sound</string>
     <string name="emptynote">Note empty: not inserted</string>
     <string name="inserttitle">Title</string>
     <string name="insertdescription">Description</string>
@@ -27,16 +25,22 @@
     <string name="save">Save</string>
     <string name="emptyfield">Title or description empty</string>
     <string-array name="type">
-        <item>Acidente</item>
-        <item>Obras</item>
-        <item>Saneamento</item>
+        <item>Accident</item>
+        <item>Construction</item>
+        <item>Sanitation</item>
     </string-array>
     <string name="acidents">Accidents</string>
     <string name="construction">Construction</string>
     <string name="sanitation">Sanitation</string>
+    <string name="preference_file_key" translatable="false">file1</string>
+    <string name="sound" translatable="false">sound</string>
     <string name="sharedpref" translatable="false">Shared Preferences File</string>
-    <string name="id_sharedpref" translatable="false">id</string>
     <string name="id">ID</string>
-    <string name="sharedpref_file" translatable="false">Shared Preferences File</string>
     <string name="more">More</string>
+    <string name="checkboxlogin">Remember Me</string>
+    <string name="spusername" translatable="false">SharedPreferences Username</string>
+    <string name="spid" translatable="false">SharedPreferences ID</string>
+    <string name="checked" translatable="false">Checkbox Checked</string>
+    <string name="allreports">All Reports</string>
+    <string name="image">Image</string>
 </resources>

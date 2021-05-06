@@ -142,7 +142,7 @@ class AddReport : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     fun post(){
         sharedPreferences = getSharedPreferences(getString(R.string.sharedpref), Context.MODE_PRIVATE)
-        val user_id: Int = sharedPreferences.getInt(R.string.id_sharedpref.toString(), 0)
+        val user_id: Int = sharedPreferences.getInt(R.string.spid.toString(), 0)
 
         val imgBitmap: Bitmap = findViewById<ImageView>(R.id.imageR).drawable.toBitmap()
         val imageFile: File = convertBitmapToFile("file", imgBitmap)

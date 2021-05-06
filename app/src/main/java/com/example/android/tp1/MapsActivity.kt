@@ -8,6 +8,9 @@ import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -68,7 +71,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
         val call = request.getReports()
         var position: LatLng
         sharedPref = getSharedPreferences(getString(R.string.sharedpref), Context.MODE_PRIVATE)
-        val id = sharedPref.getInt(R.string.id_sharedpref.toString(), 0)
+        val id = sharedPref.getInt(R.string.spid.toString(), 0)
         val loc = Location("dummyprovider")
         call.enqueue(object : Callback<List<Report>> {
             override fun onResponse(call: Call<List<Report>>, response: Response<List<Report>>) {
@@ -78,10 +81,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
                         val dist = calculateDistance(loc.latitude, loc.longitude, rep.latitude.toDouble(), rep.longitude.toDouble())
                         if (id == rep.user_id) {
                             position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
-                            mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description + " -- " + "a " + dist + " metros").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                            mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
                         } else {
                             position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
-                            mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description + " -- " + "a " + dist + " metros").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                            mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
                         }
                     }
                 }
@@ -266,6 +269,126 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnInfoWi
         super.onResume()
         startLocationUpdates()
         Log.d("**** ANDRE", "onResume - startLocationUpdates")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menumapa, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.filterAll -> {
+                mMap.clear()
+                val id = sharedPref.getInt(R.string.spid.toString(), 0)
+                val intent = Intent(this, MapsActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.filterAccident -> {
+                mMap.clear()
+                val id = sharedPref.getInt(R.string.spid.toString(), 0)
+                val request = ServiceBuilder.buildService(EndPoints::class.java)
+                val call = request.getReports()
+                var position: LatLng
+                call.enqueue(object : Callback<List<Report>> {
+                    override fun onResponse(
+                            call: Call<List<Report>>,
+                            response: Response<List<Report>>
+                    ) {
+                        if (response.isSuccessful) {
+                            report = response.body()!!
+                            for (rep in report) {
+                                if(rep.type_id == 1) {
+                                    if (id == rep.user_id) {
+                                        position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
+                                        mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                                    } else {
+                                        position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
+                                        mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<List<Report>>, t: Throwable) {
+                        Toast.makeText(this@MapsActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
+                true
+            }
+            R.id.filterConstruction -> {
+                mMap.clear()
+                val id = sharedPref.getInt(R.string.spid.toString(), 0)
+                val request = ServiceBuilder.buildService(EndPoints::class.java)
+                val call = request.getReports()
+                var position: LatLng
+                call.enqueue(object : Callback<List<Report>> {
+                    override fun onResponse(
+                            call: Call<List<Report>>,
+                            response: Response<List<Report>>
+                    ) {
+                        if (response.isSuccessful) {
+                            report = response.body()!!
+                            for (rep in report) {
+                                if(rep.type_id == 2) {
+                                    if (id == rep.user_id) {
+                                        position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
+                                        mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                                    } else {
+                                        position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
+                                        mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<List<Report>>, t: Throwable) {
+                        Toast.makeText(this@MapsActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
+                true
+            }
+            R.id.filterSanitation -> {
+                mMap.clear()
+                val id = sharedPref.getInt(R.string.spid.toString(), 0)
+                val request = ServiceBuilder.buildService(EndPoints::class.java)
+                val call = request.getReports()
+                var position: LatLng
+                call.enqueue(object : Callback<List<Report>> {
+                    override fun onResponse(
+                            call: Call<List<Report>>,
+                            response: Response<List<Report>>
+                    ) {
+                        if (response.isSuccessful) {
+                            report = response.body()!!
+                            for (rep in report) {
+                                if(rep.type_id == 3) {
+                                    if (id == rep.user_id) {
+                                        position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
+                                        mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)))
+                                    } else {
+                                        position = LatLng(rep.latitude.toDouble(), rep.longitude.toDouble())
+                                        mMap.addMarker(MarkerOptions().position(position).title(rep.title + " - " + rep.description).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<List<Report>>, t: Throwable) {
+                        Toast.makeText(this@MapsActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

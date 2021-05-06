@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/filterAll"
+        android:title="@string/allreports" />
+    <item
+        android:id="@+id/filterAccident"
+        android:title="@string/acidents" />
+    <item
+        android:id="@+id/filterConstruction"
+        android:title="@string/construction" />
+    <item
+        android:id="@+id/filterSanitation"
+        android:title="@string/sanitation" />
+</menu>

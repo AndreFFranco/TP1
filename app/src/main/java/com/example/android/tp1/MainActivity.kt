@@ -17,6 +17,7 @@ import com.example.android.tp1.api.EndPoints
 import com.example.android.tp1.api.LoginCheck
 import com.example.android.tp1.api.ServiceBuilder
 import com.example.android.tp1.api.User
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.notes.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnLogin: Button
     private lateinit var user: EditText
     private lateinit var pass: EditText
-    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val sharedPreferences = getSharedPreferences(getString(R.string.sharedpref), Context.MODE_PRIVATE)
+
+        val loginCheck = sharedPreferences.getBoolean(getString(R.string.checked),false)
+
+        if (loginCheck) {
+            val intent = Intent(this, MapsActivity::class.java)
+            Toast.makeText(this@MainActivity, getString(R.string.welcome), Toast.LENGTH_LONG).show()
+            startActivity(intent)
+            finish()
+
+        }
+
         user = findViewById(R.id.editTextTextPersonName)
         pass = findViewById(R.id.editTextTextPassword)
 
@@ -54,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         btnLogin.setOnClickListener() {
             login()
         }
+
 /*
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getUsers()
@@ -97,6 +110,7 @@ class MainActivity : AppCompatActivity() {
     }*/
 
     fun login() {
+
         val username =  user.text.toString()
         val password = pass.text.toString()
 
@@ -113,13 +127,16 @@ class MainActivity : AppCompatActivity() {
                         if(safe.status == true) {
                             val sharedPreferences = getSharedPreferences(getString(R.string.sharedpref), Context.MODE_PRIVATE)
                             with(sharedPreferences.edit()) {
-                                putInt(R.string.id_sharedpref.toString(), safe.id)
+                                putString(R.string.spusername.toString(), username)
+                                putInt(R.string.spid.toString(),response.body()!!.id)
+                                putBoolean(getString(R.string.checked),checkBox.isChecked)
                                 commit()
 
                             }
                             val intent = Intent(this@MainActivity, MapsActivity::class.java)
                             intent.putExtra("id",safe.id)
                             startActivity(intent)
+                            finish()
                         }
 
                     }
