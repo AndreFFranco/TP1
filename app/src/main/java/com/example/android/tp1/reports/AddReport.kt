@@ -51,7 +51,6 @@ class AddReport : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private var imageUri: Uri? = null
 
     private lateinit var button: Button
-    private lateinit var buttonBack: Button
     private lateinit var buttonAdd: Button
     private lateinit var spinner: Spinner
     private lateinit var sharedPreferences: SharedPreferences
@@ -72,7 +71,7 @@ class AddReport : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             gallery.type = "image/*"
             startActivityForResult(gallery, pickImage)
         }
-        buttonBack = findViewById(R.id.btnCancelR)
+        val buttonBack = findViewById<Button>(R.id.btnCancelR)
         buttonBack.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)

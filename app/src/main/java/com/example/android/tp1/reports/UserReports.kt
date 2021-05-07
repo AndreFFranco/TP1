@@ -1,13 +1,16 @@
 package com.example.android.tp1.reports
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.tp1.MapsActivity
 import com.example.android.tp1.R
 import com.example.android.tp1.adapter.ReportAdapter
 import com.example.android.tp1.api.EndPoints
@@ -51,6 +54,13 @@ class UserReports: AppCompatActivity() {
                 Toast.makeText(this@UserReports, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+
+        val buttonBack = findViewById<Button>(R.id.backbtn)
+        buttonBack.setOnClickListener {
+            val intent = Intent(this, MapsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
     }
 

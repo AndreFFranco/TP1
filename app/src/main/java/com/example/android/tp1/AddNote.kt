@@ -36,6 +36,13 @@ class AddNote : AppCompatActivity() {
             }
             finish()
         }
+
+        val buttonBack = findViewById<Button>(R.id.backbtn)
+        buttonBack.setOnClickListener {
+            val intent = Intent(this, NotesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     companion object {

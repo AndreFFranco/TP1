@@ -42,8 +42,6 @@
         </activity>
         <activity android:name=".AddNote" />
         <activity android:name=".NotesActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".RegisterActivity" />
         <activity android:name=".ViewNoteActivity" />
         <activity android:name=".reports.AddReport" />
         <activity android:name=".reports.DeleteReport" />

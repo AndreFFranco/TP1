@@ -63,6 +63,13 @@ class ViewNoteActivity : AppCompatActivity() {
             Alert.show()
         }
 
+        val buttonBack = findViewById<Button>(R.id.backbtn)
+        buttonBack.setOnClickListener {
+            val intent = Intent(this, NotesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     fun isNullOrEmpty(str: String?): Boolean {

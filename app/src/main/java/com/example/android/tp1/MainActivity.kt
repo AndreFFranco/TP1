@@ -122,7 +122,6 @@ class MainActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<LoginCheck>, response: Response<LoginCheck>) {
                     if (response.isSuccessful) {
                         val safe : LoginCheck=response.body()!!
-                        Toast.makeText(this@MainActivity,safe.message,Toast.LENGTH_SHORT).show()
 
                         if(safe.status == true) {
                             val sharedPreferences = getSharedPreferences(getString(R.string.sharedpref), Context.MODE_PRIVATE)
